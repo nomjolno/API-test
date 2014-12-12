@@ -1,5 +1,6 @@
 package com.example.tenki;
 
+import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +19,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 public class MainActivity extends Activity {
-	String appId = "アプリケーションIDを書く";
+	String appId = "";
 	String locationURL = "http://contents.search.olp.yahooapis.jp/OpenLocalPlatform/V1/contentsGeoCoder";
 	String weatherURL = "http://weather.olp.yahooapis.jp/v1/place";
 	AsyncHttpClient client;
@@ -49,8 +50,8 @@ public class MainActivity extends Activity {
 		// WebAPIを使用する(getメソッド)
 		client.get(locationURL, requestParams, new JsonHttpResponseHandler() {
 			@Override
-			public void onSuccess(int statusCode, org.apache.http.Header[] headers, JSONObject response) {
-				super.onSuccess(statusCode, headers, response);
+			public void onSuccess(int statusCode, Header[] headers , JSONObject response) {
+				super.onSuccess(statusCode , headers, response);
 				try{
 					// responseから、key=“Features” のvalue(Json配列)を取り出す
 					JSONArray features = response.getJSONArray("Feature");
@@ -83,9 +84,8 @@ public class MainActivity extends Activity {
 				// 気象情報APIに対してリクエストを送る(URL: weatherURL)
 				client.get(weatherURL, requestParams, new JsonHttpResponseHandler() {
 				@Override
-				public void onSuccess(int statusCode, org.apache.http.Header[] headers, JSONObject response) {
-					super.onSuccess(statusCode, headers, response);
-					super.onSuccess(statusCode, headers, response);
+				public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+					super.onSuccess(statusCode,  headers, response);
 					try{
 						JSONArray features = response.getJSONArray("Feature");
 					JSONObject feature = features.getJSONObject(0);
