@@ -19,7 +19,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 public class MainActivity extends Activity {
-	String appId = "";
+	String appId = "dj0zaiZpPUFGQklVTWRvSXFpNCZzPWNvbnN1bWVyc2VjcmV0Jng9OGQ-";
 	String locationURL = "http://contents.search.olp.yahooapis.jp/OpenLocalPlatform/V1/contentsGeoCoder";
 	String weatherURL = "http://weather.olp.yahooapis.jp/v1/place";
 	AsyncHttpClient client;
@@ -32,12 +32,17 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		client = new AsyncHttpClient();
+		
 		
 		tv1 = (TextView)findViewById(R.id.textView1);
 		tv2 = (TextView)findViewById(R.id.textView2);
 		editText = (EditText)findViewById(R.id.editText1);
 		listView = (ListView)findViewById(R.id.list);
+		
+		client = new AsyncHttpClient();
+		
+		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+		listView.setAdapter(adapter);
 	}
 	public void getlocation(View view){
 		// EditTextに入力された文字を取得し、変数に代入
@@ -74,10 +79,10 @@ public class MainActivity extends Activity {
 		});
 	}
 		
-			private void getWeatherInformation(String coordinates) {
+			public void getWeatherInformation(String coordinates) {
 				// TODO Auto-generated method stub
 				// Request Params
-				RequestParams requestParams = new RequestParams();
+			RequestParams requestParams = new RequestParams();
 				requestParams.put("appid", appId); // appid: id
 				requestParams.put("output", "json"); // output: json
 				requestParams.put("coordinates", coordinates); // coordinates: 検索座標
@@ -107,7 +112,7 @@ public class MainActivity extends Activity {
 					e.printStackTrace();
 					}
 			}
-		});
+		}); 
 	}
 
 	@Override
